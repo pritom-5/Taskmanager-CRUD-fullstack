@@ -24,13 +24,15 @@ export default function TaskForm() {
     let tempid;
 
     if (edit) {
-      tempid = id;
+      tempid = _id;
     } else {
       tempid = Math.random().toFixed(3);
     }
     pushNewTaskToTaskState({ ...data, _id: tempid });
 
     formRef.current.reset();
+
+    "taskForm", _id;
 
     if (edit) {
       try {
@@ -46,7 +48,7 @@ export default function TaskForm() {
         const responseData = await response.json();
         return;
       } catch (error) {
-        console.log(error);
+        error;
       }
     }
 
@@ -62,7 +64,7 @@ export default function TaskForm() {
       );
       const responseData = await response.json();
     } catch (error) {
-      console.log(error);
+      error;
     }
   };
 
@@ -97,7 +99,7 @@ export default function TaskForm() {
               defaultValue={desc}
             />
           </Form.Group>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             {edit ? "Edit Task" : "Add Task"}
           </button>
         </Form>

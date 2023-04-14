@@ -12,10 +12,10 @@ export default function Tasks() {
     useContext(taskCtx);
   // on first load useEffect fetch data from api/tasks
 
-  console.log(tasks);
+  tasks;
 
   const deleteHandler = async (taskId) => {
-    console.log(taskId);
+    taskId;
 
     try {
       const responseObj = {
@@ -27,7 +27,7 @@ export default function Tasks() {
         responseObj
       );
     } catch (error) {
-      console.log(error);
+      error;
     }
 
     removeDeletedTaskFromTaskState(taskId);
@@ -55,12 +55,12 @@ export default function Tasks() {
             <div className="buttons d-flex">
               <button
                 type="button"
-                class="btn btn-info"
+                className="btn btn-info"
                 onClick={() =>
                   showAddTaskModalHandler({
                     show: true,
                     edit: true,
-                    _id: item.id,
+                    _id: item._id,
                     title: item.title,
                     desc: item.description,
                   })
@@ -70,7 +70,7 @@ export default function Tasks() {
               </button>
               <button
                 type="button"
-                class="btn btn-danger"
+                className="btn btn-danger"
                 onClick={() => deleteHandler(item._id)}
               >
                 delete

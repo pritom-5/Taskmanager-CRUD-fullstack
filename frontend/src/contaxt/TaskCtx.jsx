@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
 const initialContextValues = {
-  showAddTaskModal: { show: false, edit: false, id: "", title: "", desc: "" },
+  showAddTaskModal: { show: false, edit: false, _id: "", title: "", desc: "" },
   showAddTaskModalHandler: () => {},
   tasks: [],
   pushNewTaskToTaskState: () => {},
@@ -15,7 +15,7 @@ export function TaskContextProvider({ children }) {
   const [showAddTaskModal, setShowAddTaskModal] = useState({
     show: false,
     edit: false,
-    id: "",
+    _id: null,
     title: "",
     desc: "",
   });
@@ -41,7 +41,7 @@ export function TaskContextProvider({ children }) {
     try {
       fetchFn();
     } catch (error) {
-      console.log(error);
+      error;
     }
   }, []);
 
@@ -57,18 +57,22 @@ export function TaskContextProvider({ children }) {
     // edit case
     if (existingTask) {
       setTasksState((prev) => {
-        const tempTasks = [...tasksState];
+        const tempTasks = [...prev];
         tempTasks[existingTaskIndex].title = title;
         tempTasks[existingTaskIndex].description = description;
 
-        console.log(tempTasks);
+        tempTasks;
+
+        ("prev");
 
         return tempTasks;
       });
       // close the modal after submit only for edit
       setShowAddTaskModal((prev) => {
+        ("modal");
         return { ...prev, show: false };
       });
+      ("main");
       return;
     }
 
@@ -82,7 +86,7 @@ export function TaskContextProvider({ children }) {
   const removeDeletedTaskFromTaskState = (id) => {
     const tempData = [...tasksState];
 
-    console.log(tempData);
+    tempData;
 
     const filteredDataAfterRemovingTask = tempData.filter(
       (item) => item._id !== id
@@ -93,13 +97,13 @@ export function TaskContextProvider({ children }) {
 
   // taskModalInfo = {show: bool, edit: bool, id: '', title: '', desc: ''}
   const showAddTaskModalHandler = (taskModalInfo) => {
-    const { show, edit, id, title, desc } = taskModalInfo;
+    const { show, _id, edit, title, desc } = taskModalInfo;
 
     if (!edit) {
       setShowAddTaskModal({
         show,
         edit: false,
-        id: "",
+        _id,
         title: "",
         desc: "",
       });
@@ -109,7 +113,7 @@ export function TaskContextProvider({ children }) {
     setShowAddTaskModal({
       show,
       edit,
-      id,
+      _id,
       title,
       desc,
     });

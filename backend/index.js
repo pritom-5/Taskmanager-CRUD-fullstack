@@ -20,8 +20,15 @@ app.use(
   })
 );
 
+// serve react app
+app.use(express.static("dist"));
+
 // to access json from backend
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.use("/api/tasks", require("./routes/taskRoutes"));
 
